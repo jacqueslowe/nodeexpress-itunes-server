@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const path = require('path');
 const request = require('request');
 const https = require("https");
 var url = require('url');
@@ -41,28 +41,8 @@ app.get('/music', function (req, res) {
     const urlExtras = 'term='+song + limit + type;
     console.log('GET music: song:'+song);
     console.log('GET music: url:'+itunesUrl+urlExtras);
-//
 
-    const url = "https://itunes.apple.com/search?term=Air&limit=25&entity=song";
-    https.get(url, httpGetResponse => {
-        // res.setEncoding("utf8");
-        let body = "";
-        httpGetResponse.on("data", data => {
-            console.log("onData:chunking" );
-            body += data;
-        });
-        httpGetResponse.on("end", () => {
-            res.writeHead(200);
-            res.write(JSON.parse(body));
-            res.end();
-           // console.log("Success: resultCount:" + body.resultCount);
-            return;
-
-            console.log(body);
-        });
-    });
-
-   /* request(itunesUrl+urlExtras, { json: true }, (err, response, body) => {
+   request(itunesUrl+urlExtras, { json: true }, (err, response, body) => {
         if (err) {
             console.log('GET music: error');
             res.writeHead(500);
@@ -77,7 +57,7 @@ app.get('/music', function (req, res) {
             res.end();
             console.log("Success: resultCount:" + body.resultCount);
             return;
-        });*/
+        });
 })
 
 app.listen(port, hostName, function () {
