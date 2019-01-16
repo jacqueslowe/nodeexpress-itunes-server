@@ -57,7 +57,7 @@ app.get('/music', function (req, res) {
             };
             items.push(item);
         }
-        res.write(JSON.stringify(items)); //find a better way to build this.
+        res.write(JSON.stringify(items));
         res.end();
         console.log("Success: resultCount:" + body.resultCount);
         return;
